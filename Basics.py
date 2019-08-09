@@ -9,4 +9,7 @@ print(sum1)
 student_grades = [2.2, 4.0, 3.8, 5.0]
 
 mySum = sum(student_grades)
-print(mySum)
+myLength = len(student_grades)
+
+mean = mySum / myLength
+print(mean)
