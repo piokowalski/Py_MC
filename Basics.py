@@ -11,5 +11,9 @@ student_grades = [2.2, 4.0, 3.8, 5.0]
 mySum = sum(student_grades)
 myLength = len(student_grades)
 
-mean = mySum / myLength
+myMean = mySum / myLength
 print(mean)
+
+##dictionary
+
+students_grades = {"John": 4.0, "Zdzisia": 4.6, "Karen": 3.5, "Jack": 2.6}
