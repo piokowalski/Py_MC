@@ -22,3 +22,8 @@ myDictionarySum = sum(students_grades.values())
 myDictionaryLen = len(students_grades)
 myDictionaryMean = myDictionarySum / myDictionaryLen
 print(myDictionaryMean)
+
+##tuples
+## IMMUTABLE - can't change the values. List is mutable
+monday_temp = (1, 4, 5)
+print(monday_temp)
