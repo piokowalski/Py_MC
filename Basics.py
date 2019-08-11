@@ -27,3 +27,5 @@ print(myDictionaryMean)
 ## IMMUTABLE - can't change the values. List is mutable
 monday_temp = (1, 4, 5)
 print(monday_temp)
+tupleExample = ((1,2,3), (4,5,6), (7,8,9))
+print(tupleExample)
