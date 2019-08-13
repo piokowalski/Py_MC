@@ -1,5 +1,8 @@
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+#
+#subplots
+#
 
 labels5 = ['1st', '2nd', '3rd', '4th', '5th']
 # Define color sets of paintings
@@ -33,3 +36,19 @@ fig5.update(layout_title_text='Van Gogh: 5 Most Prominent Colors Shown Proportio
 
 fig5 = go.Figure(fig5)
 fig5.show()
+
+#
+# plot chart with area proportional to total count
+#
+
+labels6 = ["Asia", "Europe", "Africa", "Americas", "Oceania"]
+
+fig6 = make_subplots(1, 2, specs=[[{'type':'domain'}, {'type':'domain'}]],
+                    subplot_titles=['1980', '2007'])
+fig6.add_trace(go.Pie(labels=labels6, values=[4, 7, 1, 7, 0.5], scalegroup='one',
+                     name="World GDP 1980"), 1, 1)
+fig6.add_trace(go.Pie(labels=labels6, values=[21, 15, 3, 19, 1], scalegroup='one',
+                     name="World GDP 2007"), 1, 2)
+
+fig6.update_layout(title_text='World GDP')
+fig6.show()
