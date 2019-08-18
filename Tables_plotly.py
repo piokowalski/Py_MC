@@ -30,7 +30,7 @@ fig2.show()
 
 import pandas as pd
 
-df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_usa_states.csv')
+df = pd.read_csv('Resources/2014_usa_states.csv')
 
 fig3 = go.Figure(data=[go.Table(
     header=dict(values=list(df.columns),
