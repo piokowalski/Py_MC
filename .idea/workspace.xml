@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4ea80536-5eda-47f6-a078-45d3be2400f4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tables_plotly.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tables_plotly.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +34,7 @@
         <entry file="file://$PROJECT_DIR$/Tables_plotly.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="201">
-              <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+              <caret line="32" column="49" lean-forward="true" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -131,6 +130,11 @@
             <path>
               <item name="Ud_PyMC" type="b2602c69:ProjectViewProjectNode" />
               <item name="Ud_PyMC" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Ud_PyMC" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Ud_PyMC" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -426,7 +430,21 @@
       <option name="project" value="LOCAL" />
       <updated>1566132881871</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Pandas Dataframe library (SSL issues)">
+      <created>1566133490629</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1566133490629</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Pandas Dataframe library - SSL issue fixed - file copied to the  Resources folder">
+      <created>1566133899788</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1566133899788</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -470,7 +488,9 @@
     <MESSAGE value="Heatmaps - basic heatmap from plotly library" />
     <MESSAGE value="Tables - basic table created" />
     <MESSAGE value="Tables - basic table styled" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tables - basic table styled" />
+    <MESSAGE value="Pandas Dataframe library (SSL issues)" />
+    <MESSAGE value="Pandas Dataframe library - SSL issue fixed - file copied to the  Resources folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pandas Dataframe library - SSL issue fixed - file copied to the  Resources folder" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Dates.py">
@@ -524,7 +544,7 @@
     <entry file="file://$PROJECT_DIR$/Tables_plotly.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
-          <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+          <caret line="32" column="49" lean-forward="true" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="49" />
         </state>
       </provider>
     </entry>
