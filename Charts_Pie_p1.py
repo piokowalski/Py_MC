@@ -1,5 +1,6 @@
 import plotly.graph_objects as go
 #https://plot.ly/python/pie-charts/
+
 #
 #basic pie chart
 #
@@ -40,7 +41,6 @@ fig4.add_trace(go.Pie(labels=labels4, values=[16, 15, 12, 6, 5, 4, 42], name="GH
               1, 1)
 fig4.add_trace(go.Pie(labels=labels4, values=[27, 11, 25, 8, 1, 3, 25], name="CO2 Emissions"),
               1, 2)
-
 # Use `hole` to create a donut-like pie chart
 fig4.update_traces(hole=.4, hoverinfo="label+percent+name")
 
