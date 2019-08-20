@@ -1,6 +1,4 @@
 import plotly.graph_objects as go
-import plotly.io as pio
-
 #
 ## Basic Figure
 #
@@ -27,3 +25,11 @@ fig3 = go.Figure(
     layout_title_text="A Figure Displayed with the 'png' Renderer"
 )
 fig3.show()
+
+#
+#
+import plotly.express as px
+
+data_canada = px.data.gapminder().query("country == 'Canada'")
+fig4 = px.bar(data_canada, x='year', y='pop')
+fig4.show()
