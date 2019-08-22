@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4ea80536-5eda-47f6-a078-45d3be2400f4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Charts_Figures1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Charts_Figures1.py" afterDir="false" />
-    </list>
+    <list default="true" id="4ea80536-5eda-47f6-a078-45d3be2400f4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Charts_Figures1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="405">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
             </state>
           </provider>
         </entry>
@@ -175,7 +173,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Charts_Figures1">
+  <component name="RunManager" selected="Python.SQL_sqlite3">
     <configuration name="Basics" type="PythonConfigurationType" factoryName="Python">
       <module name="Ud_PyMC" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -302,6 +300,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="SQL_sqlite3" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Ud_PyMC" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SQL_sqlite3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Tables_plotly" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Ud_PyMC" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -331,6 +350,7 @@
       <item itemvalue="Python.Charts_Heatmaps" />
       <item itemvalue="Python.Tables_plotly" />
       <item itemvalue="Python.Charts_Figures1" />
+      <item itemvalue="Python.SQL_sqlite3" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -512,7 +532,21 @@
       <option name="project" value="LOCAL" />
       <updated>1566337347040</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Figures charts practice - psutil installed">
+      <created>1566337552145</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1566337552145</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Figures charts practice - plotly express">
+      <created>1566337696485</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1566337696485</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -524,7 +558,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49964765" visible="true" weight="0.33377483" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49964765" weight="0.33377483" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -539,7 +573,6 @@
     </layout>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Initial commit of Mega Course from Udemy" />
     <MESSAGE value="Practicing datetime - counting days" />
     <MESSAGE value="Starting with basics" />
     <MESSAGE value="Using lists, and python console: dir(list) command" />
@@ -563,7 +596,9 @@
     <MESSAGE value="Figures charts practice - basic figure" />
     <MESSAGE value="Figures charts practice - basic figure displaying itself" />
     <MESSAGE value="Figures charts practice - PNG renderer (some issues)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Figures charts practice - PNG renderer (some issues)" />
+    <MESSAGE value="Figures charts practice - psutil installed" />
+    <MESSAGE value="Figures charts practice - plotly express" />
+    <option name="LAST_COMMIT_MESSAGE" value="Figures charts practice - plotly express" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/pandas/__init__.py">
@@ -623,8 +658,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Charts_Figures1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="405">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>
