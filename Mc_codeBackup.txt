@@ -1,0 +1,362 @@
+'([Day_code]='N' OR [Day_code]='S' OR [Day_code]='R' OR [Day_code]='H')
+
+Sub Grafik_konwerter()
+''//Deklaracja danych
+Dim jahre, mie, dzie As String 'Rok/Miesiac/Dzien
+Dim tempDate As String       'Przechowalnik foramtu daty
+Dim x, y As Integer      'Punkt referencyjny
+Dim i, j As Integer      'Liczniki petli
+Dim numie As String      'Numer miesiaca
+Dim ValidYear As Boolean 'Weryfikacja roku
+Dim Yr As String         '==================
+    Yr = year(Now)       '===walidacja roku===
+Dim rmd, rmdAdd As Date
+Dim war As String        'wartoúÊ w komÛrce
+Dim ci As Integer        'color index
+
+'':::::::::::::::::KOLORY WEWN•TRZ KOM”REK::::::::::::::::::::::::::::::
+'Debug.Print ("Zielony " & Range("D8").Interior.ColorIndex) = [43]
+'Debug.Print ("PomaraÒczowy " & Range("H7").Interior.ColorIndex) = [44]
+'Debug.Print ("Bia≥y " & Range("B6").Interior.ColorIndex) = [-4142]
+'Debug.Print ("ØÛ≥ty " & Range("F6").Interior.ColorIndex) = [6]
+'Debug.Print ("Czerwony " & Range("B14").Interior.ColorIndex) = [3]
+
+''//Deklaracja roku (z walidacjπ) po uruchomieniu makra
+ValidYear = False
+Do
+jahre = InputBox("Podaj rok dotyczπcy grafiku:")
+    If IsNumeric(jahre) Then
+        If jahre >= Yr And jahre < 2100 Then
+    ValidYear = True
+MsgBox ("RozpoczÍcie konwersji dla " + jahre + " roku.")
+Else
+    MsgBox ("Podaj poprawny rok.")
+        End If
+    End If
+If jahre = "" Then Exit Sub
+Loop Until ValidYear
+
+
+
+''//Tworzenie tabeli
+Worksheets.Add(After:=Worksheets(Worksheets.Count)).Name = "SQLtable"
+ThisWorkbook.Worksheets("4kw").Cells(1, 1) = 1
+''//Szukanie pierwszego (1/3) punktu referencyjnego dla zmiany A
+Dim zmiaX As Range
+Set zmiaX = ThisWorkbook.Worksheets("4kw").Range("A1:B10").Find("zmiana A")
+x = zmiaX.Column
+y = zmiaX.Row
+petla:
+''Dekodowanie nazwy miesiπca z walidacjπ na numer (potrzebny do zbudowania pe≥nej daty)
+mie = mieToNum(ThisWorkbook.Worksheets("4kw").Cells(y - 3, x + 1))
+
+''Zapis punktu referencyjnego do "stosu" danych
+ThisWorkbook.Worksheets("4kw").Cells(2, 40) = x
+ThisWorkbook.Worksheets("4kw").Cells(1, 40) = y
+
+
+
+
+    For i = x + 1 To x + 32
+        dzie = ThisWorkbook.Worksheets("4kw").Cells(y - 1, i)
+        tempDate = jahre + "-" + mie + "-" + dayFormat(dzie) + dzie
+        ThisWorkbook.Worksheets("4kw").Cells(1, 42) = tempDate
+            For j = y To y + 3
+ThisWorkbook.Worksheets("4kw").Cells(3, 40) = ThisWorkbook.Worksheets("4kw").Cells(j, i).Interior.ColorIndex
+ThisWorkbook.Worksheets("4kw").Cells(4, 40) = ThisWorkbook.Worksheets("4kw").Cells(j, i)
+ThisWorkbook.Worksheets("4kw").Cells(5, 40) = Right(ThisWorkbook.Worksheets("4kw").Cells(j, 1), 1)
+            Call Dekoder_dni
+            Call Zapis
+        Next
+    Next
+
+''// - czyszczenie tabeli
+'ThisWorkbook.Worksheets("SQLtable").Cells.Clear
+
+
+''// - kolejne punkty referencyjne
+y = y + 4
+Set zmiaX = ThisWorkbook.Worksheets("4kw").Range("A" & y & ":B" & y + 10).Find("zmiana A")
+
+If zmiaX Is Nothing Then GoTo sqlsub
+x = zmiaX.Column
+y = zmiaX.Row
+
+If y < 200 Then GoTo petla
+
+sqlsub:
+Call SQL
+
+''// Czyszczenie stosÛw danych na arkuszu po wykonaniu makra
+ThisWorkbook.Worksheets("4kw").Cells(1, 1).Clear
+ThisWorkbook.Worksheets("4kw").Range("AL1:AQ10").Clear
+ThisWorkbook.Worksheets("SQLtable").Delete
+
+End Sub
+
+''':::::::::::::::::::::::::::::::::::::::'''
+':::::::::::::::::::::::::::::::::::::::::::'
+Sub Dekoder_dni()
+''Deklaracje
+Dim war As String   'WartoúÊ zaczytana z tabeli
+Dim ci As String    'WartoúÊ koloru komÛrki
+Dim wynikShKind As String  'Zdekodowany Shift_kind
+Dim wynikDayCode As String 'Zdekodowany kod dnia
+
+Dim data As String 'odczyt daty (sprawdzenie czy to jest sobota)
+data = ThisWorkbook.Worksheets("4kw").Cells(1, 42)
+
+''Odczyt danych z tymczasowego stosu danych
+ci = ThisWorkbook.Worksheets("4kw").Cells(3, 40)
+war = ThisWorkbook.Worksheets("4kw").Cells(4, 40)
+shift = ThisWorkbook.Worksheets("4kw").Cells(5, 40)
+
+If war <> "" Then
+        Select Case war
+            Case "1"
+                wynikShKind = "I"   'Pierwsza zmiana
+                wynikDayCode = "R"
+            Case "2"
+                wynikShKind = "II"  'Druga zmiana
+                wynikDayCode = "R"
+            Case "1(8)"
+                wynikShKind = "1"   'Pierwsza trzyzmianowej
+                wynikDayCode = "R"
+            Case "2(8)"
+                wynikShKind = "2"   'Druga trzyzmianowej
+                wynikDayCode = "R"
+            Case "3(8)"
+                wynikShKind = "3"   'Trzecia trzyzmianowej
+                wynikDayCode = "R"
+        End Select
+    Else
+        Select Case ci
+            Case "6"
+            If Weekday(data, vbSaturday) = 1 Then
+                    wynikShKind = ""
+                    wynikDayCode = "S" 'ØÛ≥ty (Sobota/Niedziela)
+                    Else
+                    wynikShKind = ""
+                    wynikDayCode = "N"
+                End If
+            Case "3"
+                wynikShKind = ""    'Kolor czerwony
+                wynikDayCode = "N"  'åwiÍta traktowane jak niedziela
+            Case "43"
+                wynikShKind = ""    'Kolor zielony
+                wynikDayCode = "S"
+            Case "44"
+                wynikShKind = ""    'Kolor pomaraÒczowy
+                wynikDayCode = "N"
+        End Select
+End If
+
+''Zapis wynikÛw po dekodowaniu - Shift_kind & Day_code
+ThisWorkbook.Worksheets("4kw").Cells(3, 42) = wynikShKind
+ThisWorkbook.Worksheets("4kw").Cells(4, 42) = wynikDayCode
+End Sub
+
+
+''//Tworzenie kompletnego rekordu w formacie SQL i zapis w nowej tabeli
+Sub Zapis()
+''Deklaracje
+Dim shStart As String
+Dim startHour As String
+Dim shift As String
+Dim ShKind As String
+Dim daycode As String
+Dim tempDate As String
+Dim Shift_Start, Shift_End As Date
+Dim i As Integer
+
+
+''Sczytanie parametrÛw dotyczπcych danego dnia i zmiany
+shift = ThisWorkbook.Worksheets("4kw").Cells(5, 40)
+ShKind = ThisWorkbook.Worksheets("4kw").Cells(3, 42)
+daycode = ThisWorkbook.Worksheets("4kw").Cells(4, 42)
+tempDate = ThisWorkbook.Worksheets("4kw").Cells(1, 42)
+
+If daycode = "" Then
+GoTo koniec:
+End If
+
+'Rozkodowanie kodu zmiany na godzinÍ startu pracy
+If daycode <> "R" Then
+    Select Case daycode
+        Case "S"
+        startHour = "06:00"
+        Case "N"
+        startHour = "06:00"
+    End Select
+Else
+    Select Case ShKind
+    Case "I"
+        startHour = "06:00"
+    Case "II"
+        startHour = "18:00"
+    Case "1"
+        startHour = "06:00"
+    Case "2"
+        startHour = "14:00"
+    Case "3"
+        startHour = "22:00"
+End Select
+End If
+
+shStart = tempDate + " " + startHour
+
+''Parsowanie na format daty
+Shift_Start = CDate(shStart)
+
+''Okreúlenie ile czasu trwa zmiana (dodawanie +8 / +12 / +24 godzin)
+If daycode <> "R" Then
+        Shift_End = DateAdd("h", 24, Shift_Start)
+    Else
+        Select Case ShKind
+            Case "I"
+        Shift_End = DateAdd("h", 12, Shift_Start)
+            Case "II"
+        Shift_End = DateAdd("h", 12, Shift_Start)
+            Case "1"
+        Shift_End = DateAdd("h", 8, Shift_Start)
+            Case "2"
+        Shift_End = DateAdd("h", 8, Shift_Start)
+            Case "3"
+        Shift_End = DateAdd("h", 8, Shift_Start)
+        End Select
+End If
+
+i = ThisWorkbook.Worksheets("4kw").Cells(1, 1)
+
+ThisWorkbook.Worksheets("SQLtable").Cells(i, 1) = Shift_Start
+ThisWorkbook.Worksheets("SQLtable").Cells(i, 2) = Shift_End
+ThisWorkbook.Worksheets("SQLtable").Cells(i, 3) = shift
+ThisWorkbook.Worksheets("SQLtable").Cells(i, 4) = ShKind
+ThisWorkbook.Worksheets("SQLtable").Cells(i, 5) = daycode
+ThisWorkbook.Worksheets("4kw").Cells(1, 1) = ThisWorkbook.Worksheets("4kw").Cells(1, 1) + 1
+
+koniec:
+
+
+End Sub
+
+Sub SQL()
+'Deklaracje
+Dim sqlQuery As String                      'SQL Query
+Dim dbIns, sep As String                    'INSERT (...)
+Dim shSt, shEnd, sh, sh_k, day_c As String  'Kolumny
+Dim counter As Integer                      'Licznik g≥Ûwny
+Dim x, y, a, b As Integer                   'Liczniki pÍtli
+Dim firstCell As Range                      'Punkt referencyjny
+Dim baza As ADODB.Connection
+Dim strcon As String
+
+strcon = "Provider=SQLOLEDB;Data Source=tcznt49; Initial catalog=P_MJRAPORT; Integrated Security=SSPI;"
+
+a = (ThisWorkbook.Worksheets("4kw").Cells(1, 1) - 1)
+Set firstCell = ThisWorkbook.Worksheets("SQLtable").Range("A1")
+
+sep = "'"
+sqlQuery = "INSERT INTO [P_MJRAPORT].[dbo].[G4_Schedule] (Shift_start, Shift_end, Shift, Shift_kind, Day_code) VALUES"
+
+point:
+'Wartoúci tabeli
+shSt = sep & ThisWorkbook.Worksheets("SQLtable").Cells(a, 1) & sep
+shEnd = sep & ThisWorkbook.Worksheets("SQLtable").Cells(a, 2) & sep
+sh = sep & ThisWorkbook.Worksheets("SQLtable").Cells(a, 3) & sep
+sh_k = sep & ThisWorkbook.Worksheets("SQLtable").Cells(a, 4) & sep
+day_c = sep & ThisWorkbook.Worksheets("SQLtable").Cells(a, 5) & sep
+
+
+
+sqlQuery = sqlQuery & "(" & shSt & "," & shEnd & "," & sh & "," & sh_k & "," & day_c & ")"
+a = a - 1
+
+If a > 0 Then
+    sqlQuery = sqlQuery & ","
+    GoTo point
+    Else
+    sqlQuery = sqlQuery & ";"
+End If
+
+Set baza = New ADODB.Connection
+With baza
+    .ConnectionString = strcon
+    .Open
+    .CommandTimeout = 0
+    .Execute sqlQuery
+    .Close
+End With
+
+Set baza = Nothing
+
+End Sub
+
+'''/=========================================\'''
+'''//:::::::::::::::::::::::::::::::::::::::\\'''
+''//::::::::::::::F U N K C J E::::::::::::::\\''
+'//:::::::::::::::::::::::::::::::::::::::::::\\'
+'==============================================='
+
+''Nazwa miesiπca -> Numer miesiπca
+Function mieToNum(Date_Str As String) As String
+mieToNum = "00"
+Select Case Date_Str
+    Case "STYCZE—"
+        mieToNum = "01"
+    Case "LUTY"
+        mieToNum = "02"
+    Case "MARZEC"
+        mieToNum = "03"
+    Case "KWIECIE—"
+        mieToNum = "04"
+    Case "MAJ"
+        mieToNum = "05"
+    Case "CZERWIEC"
+        mieToNum = "06"
+    Case "LIPIEC"
+        mieToNum = "07"
+    Case "SIERPIE—"
+        mieToNum = "08"
+    Case "WRZESIE—"
+        mieToNum = "09"
+    Case "PAèDZIERNIK"
+        mieToNum = "10"
+    Case "LISTOPAD"
+        mieToNum = "11"
+    Case "GRUDZIE—"
+        mieToNum = "12"
+End Select
+''Miesiπc validator
+If mieToNum = "00" Then
+    MsgBox ("Nie rozpoznano miesiπca: " & Date_Str & Chr(13) & " Wpisz numer miesiπca.")
+    mieToNum = InputBox("Wpisz miesiπc: " + Chr(13) + "(01-12)")
+End If
+End Function
+
+
+''DzieÒ na format dwucyfrowy (spÛjnoúÊ zapisu)
+Function dayFormat(dzie As String) As String
+'dzie = "1"
+Select Case dzie
+    Case "1"
+        dzie = "01"
+    Case "2"
+        dzie = "02"
+    Case "3"
+        dzie = "03"
+    Case "4"
+        dzie = "04"
+    Case "5"
+        dzie = "05"
+    Case "6"
+        dzie = "06"
+    Case "7"
+        dzie = "07"
+    Case "8"
+        dzie = "08"
+    Case "9"
+        dzie = "09"
+End Select
+End Function
+
